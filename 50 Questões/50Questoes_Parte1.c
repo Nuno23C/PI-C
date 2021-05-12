@@ -267,6 +267,189 @@ int difConsecutivos (char s[]) {
     return maior;
 }
 
+// Exercício 17 - Calcula o comprimento do maior prefixo em comum entre duas strings
+int maiorPrefixo (char s1[], char s2[]) {
+    int i, count = 0;
+
+    for(i=0; s1[i]; i++){
+        if(s1[i] == s2[i])
+            count++;
+        else
+            return count;
+    }
+
+    return count;
+}
+
+// Exercício 18 - Calcula o comprimento do maior sufixo em comum entre duas strings
+int maiorSufixo (char s1[], char s2[]) {
+    int i = strlen(s1) - 1,
+        j = strlen(s2) - 1,
+        count = 0;
+
+    for (; i >= 0; i--, j--) {
+        if (s1[i] == s2[j])
+            count++;
+        else
+            return count;
+    }
+    return count;
+}
+
+// Exercício 19 - Calcula o tamanho do maior sufixo de s1 que é um prefixo de s2.
+int sufPref(char s1[], char s2[]){
+    int count = 0, j = 0, i;
+
+    for(i = 0; s1[i]; i++){
+        if(s1[i] == s2[j]){
+            count++;
+            j++;
+        } else {
+            count = 0;
+            j = 0;
+        }
+    }
+    return count;
+}
+
+// Exercício 20 - Conta as palavras de uma string
+int contaPal(char s[]){
+    int count = 0, i = 0;
+
+    while(i<strlen(s)){
+        if(!(isspace(s[i])) && s[i] != '\0'){
+            count++;
+            i++;
+        }
+        while(!(isspace(s[i]))){
+            i++;
+        }
+        while(isspace(s[i])){
+            i++;
+        }
+    }
+    return count;
+}
+
+// Exercício 21 - Conta as vogais de uma string
+int contaVogais (char s[]) {
+    int i = 0, count = 0;
+
+    while (s[i]) {
+        if (s[i] == 'a' || s[i] == 'A' || s[i] == 'e' || s[i] == 'E' || s[i] == 'i' || s[i] == 'I' || s[i] == 'o' || s[i] == 'O' || s[i] == 'u' || s[i] == 'U')
+            count++;
+            i++;
+    }
+    return count;
+}
+
+// Exercício 22 - Testa se todos os caracteres da primeira string estão contidos na segunda
+// FUNÇÃO AUXILIAR
+int verificaSePertence (char x, char s[]){
+    int i, r = 0;
+
+    for(i=0; s[i]; i++){
+        if(x == s[i])
+            r = 1;
+    }
+
+    return r; // r = 1 se pertencer e r = 0 se NAO pertencer
+}
+
+int contida (char a[], char b[]) {
+    int i = 0, r = 0;
+
+    for(i=0; a[i]; i++){
+        if (verificaSePertence (a[i],b) == 0){
+            r = 0;
+            break;
+        } else
+            r = 1;
+    }
+
+    return r;
+}
+
+// Exercício 23 - Testa se uma palavra é palíndrome
+int palindrome (char s[]) {
+    int i = 0,
+        j = strlen(s) - 1,
+        r = 1;
+
+    while (i < strlen(s)/2) {
+        if (s[i] != s[j]) {
+            r = 0;
+            break;
+        } else {
+            i++;
+            j--;
+        }
+    }
+
+    return r;
+}
+
+// Exercício 24 - Remove os caracteres que se repetem sucessivamente
+// Constroi uma nova string (MANEIRA TESTADA NO MAIN)
+int remRep1 (char x[]) {
+    int i = 0, j = 0, count = 0;
+    char newstr[strlen(x)];
+
+    while (x[i]) {
+        if (x[i] != x[i+1]) {
+            newstr[j] = x[i];
+            i++;
+            j++;
+            count++;
+        } else
+            i++;
+    }
+
+    newstr[j+1] = '\0';
+
+    printf("%s\n", newstr);
+
+    return count;
+}
+
+// Altera no array (100% dos testes no CODEBOARD)
+int remRep(char s[]){
+    int i, j;
+
+    for(i=0; s[i]; i++){
+        if(s[i] == s[i+1]){
+            for(j=i+1; s[j]; j++)
+                s[j] = s[j+1];
+            i--;
+        }
+    }
+
+    return i;
+}
+
+// Exercício 25 - Remove os espaços repetidos sucessivamente (TESTADA NO MAIN) (NAO FUNCIONA NO CODEBOARD)
+int limpaEspacos (char s[]) {
+    int i = 0, j = 0, comp = 0;
+    char newstr[strlen(s)];
+
+    while (s[i]) {
+        if (s[i] == ' ' && s[i+1] == ' ') {
+            i++;
+        } else {
+            newstr[j] = s[i];
+            i++;
+            j++;
+        }
+    }
+
+    newstr[j+1] = '\0';
+    comp = strlen(newstr);
+
+    printf ("%s\n", newstr);
+
+    return comp;
+}
+
 
 
 
@@ -378,6 +561,20 @@ int main () {
             resultado = difConsecutivos("aabcccac");
 
             printf("%d\n", resultado);
+
+            break;
+
+        case 24:
+            resultado = remRep1("aaabaaabbbaaa");
+
+            printf ("%d\n", resultado);
+
+            break;
+
+        case 25:
+            resultado = limpaEspacos ("a  b    banana  azul   ");
+
+            printf ("%d\n", resultado);
 
             break;
 
