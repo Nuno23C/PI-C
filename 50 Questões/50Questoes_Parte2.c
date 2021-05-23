@@ -39,8 +39,17 @@ void imprimeL (LInt l) {
 }
 
 // 4 - Inverte uma lista
-LInt reverseL (LInt l) {
+LInt reverseL(LInt l){
+	LInt front, back = NULL;
 
+	while(l) {
+		front = l->prox;
+		l->prox = back;
+		back = l;
+		l = front;
+	}
+
+	return back;
 }
 
 // 5 - Insere um elemento numa lista ordenada
